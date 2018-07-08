@@ -26,7 +26,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void decrementCount(View view) {
-        count--;
+        if (count > 0) {
+            count--;
+        }
         displayCount.setText(Integer.toString(count));
     }
 
