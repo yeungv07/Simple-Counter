@@ -109,6 +109,7 @@
         android:text="Light"
         android:textOff="Dark"
         android:textSize="14sp"
+        android:theme="@style/SwitchStyle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:checked="true" />

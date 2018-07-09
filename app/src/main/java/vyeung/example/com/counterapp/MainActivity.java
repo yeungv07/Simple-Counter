@@ -12,11 +12,6 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    String WHITE = new String("#ffffff");
-    String BLACK = new String("#000000");
-    String GREY = new String("#d8d5d0");
-    String RED = new String("#ff0000");
-
     protected int count = 0;
     TextView displayCount;
     Switch lightSwitch;
@@ -38,9 +33,9 @@ public class MainActivity extends AppCompatActivity {
         resetButton = findViewById(R.id.resetButton);
 
         lightSwitch.setChecked(Boolean.TRUE);
-        incButton.setBackgroundColor(Color.parseColor(GREY));
-        decButton.setBackgroundColor(Color.parseColor(GREY));
-        resetButton.setBackgroundColor(Color.parseColor(RED));
+        incButton.setBackgroundColor(Color.LTGRAY);
+        decButton.setBackgroundColor(Color.LTGRAY);
+        resetButton.setBackgroundColor(Color.RED);
 
         lightSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -75,17 +70,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void setLightScheme() {
-        main_layout.setBackgroundColor(Color.parseColor(WHITE));
-        displayCount.setTextColor(Color.parseColor(BLACK));
+        main_layout.setBackgroundColor(Color.WHITE);
+        displayCount.setTextColor(Color.BLACK);
         lightSwitch.setText("Light");
-        lightSwitch.setTextColor(Color.parseColor(BLACK));
+        lightSwitch.setTextColor(Color.BLACK);
+        incButton.setBackgroundColor(Color.LTGRAY);
+        incButton.setTextColor(Color.BLACK);
+        decButton.setBackgroundColor(Color.LTGRAY);
+        decButton.setTextColor(Color.BLACK);
+
+
+
+
+
     }
 
     protected void setDarkScheme() {
-        main_layout.setBackgroundColor(Color.parseColor(BLACK));
-        displayCount.setTextColor(Color.parseColor(WHITE));
+        main_layout.setBackgroundColor(Color.BLACK);
+        displayCount.setTextColor(Color.WHITE);
         lightSwitch.setText("Dark");
-        lightSwitch.setTextColor(Color.parseColor(WHITE));
+        lightSwitch.setTextColor(Color.WHITE);
+        incButton.setBackgroundColor(Color.DKGRAY);
+        incButton.setTextColor(Color.WHITE);
+        decButton.setBackgroundColor(Color.DKGRAY);
+        decButton.setTextColor(Color.WHITE);
 
     }
 
