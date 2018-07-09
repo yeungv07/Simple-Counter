@@ -79,10 +79,6 @@ public class MainActivity extends AppCompatActivity {
         decButton.setBackgroundColor(Color.LTGRAY);
         decButton.setTextColor(Color.BLACK);
 
-
-
-
-
     }
 
     protected void setDarkScheme() {
@@ -90,9 +86,9 @@ public class MainActivity extends AppCompatActivity {
         displayCount.setTextColor(Color.WHITE);
         lightSwitch.setText("Dark");
         lightSwitch.setTextColor(Color.WHITE);
-        incButton.setBackgroundColor(Color.DKGRAY);
+        incButton.setBackgroundColor(getResources().getColor(R.color.dkgray));
         incButton.setTextColor(Color.WHITE);
-        decButton.setBackgroundColor(Color.DKGRAY);
+        decButton.setBackgroundColor(getResources().getColor(R.color.dkgray));
         decButton.setTextColor(Color.WHITE);
 
     }
