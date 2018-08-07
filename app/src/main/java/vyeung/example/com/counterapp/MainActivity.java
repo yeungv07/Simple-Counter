@@ -3,6 +3,7 @@ package vyeung.example.com.counterapp;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.support.constraint.ConstraintLayout;
@@ -23,7 +24,8 @@ public class MainActivity extends AppCompatActivity {
     Button incButton, decButton, resetButton;
     SharedPreferences sharedPrefs;
     Vibrator vibrator;
-
+    MediaPlayer incSound;
+    MediaPlayer decSound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
         resetButton.setBackgroundColor(Color.RED);
 
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        incSound = MediaPlayer.create(this, R.raw.add_pop);
+        decSound = MediaPlayer.create(this, R.raw.dec_pop);
+
 
         lightSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -76,18 +81,19 @@ public class MainActivity extends AppCompatActivity {
 
     public void incrementCount(View view) {
         count++;
-        vibrator.vibrate(10);
+        incSound.start();
+        vibrator.vibrate(20);
         displayCount.setText(Integer.toString(count));
     }
 
     public void decrementCount(View view) {
         if (count > 0) {
             count--;
-
+            decSound.start();
             // creates a double vibration effect
             // 0 means start immediately.
             // Then vibrate for 10, off for 50, then vibrate for 10
-            long[] pattern = {0, 10, 50, 10};
+            long[] pattern = {0, 10, 100, 10};
             vibrator.vibrate(pattern, -1);
         }
         displayCount.setText(Integer.toString(count));
