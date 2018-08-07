@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     Vibrator vibrator;
     MediaPlayer incSound;
     MediaPlayer decSound;
+    MediaPlayer errorSound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         incSound = MediaPlayer.create(this, R.raw.add_pop);
         decSound = MediaPlayer.create(this, R.raw.dec_pop);
+        errorSound = MediaPlayer.create(this, R.raw.error);
 
 
         lightSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -82,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
     public void incrementCount(View view) {
         count++;
         incSound.start();
-        vibrator.vibrate(20);
+        vibrator.vibrate(30);
         displayCount.setText(Integer.toString(count));
     }
 
@@ -93,7 +95,12 @@ public class MainActivity extends AppCompatActivity {
             // creates a double vibration effect
             // 0 means start immediately.
             // Then vibrate for 10, off for 50, then vibrate for 10
-            long[] pattern = {0, 10, 100, 10};
+            long[] pattern = {0, 30, 40, 30};
+            vibrator.vibrate(pattern, -1);
+        }
+        else {
+            long[] pattern = {0, 50, 50, 50, 50, 50};
+            errorSound.start();
             vibrator.vibrate(pattern, -1);
         }
         displayCount.setText(Integer.toString(count));
