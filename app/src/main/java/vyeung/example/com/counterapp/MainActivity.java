@@ -1,6 +1,10 @@
 package vyeung.example.com.counterapp;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,7 +21,8 @@ public class MainActivity extends AppCompatActivity {
     Switch lightSwitch;
     ConstraintLayout main_layout;
     Button incButton, decButton, resetButton;
-
+    SharedPreferences sharedPrefs;
+    Vibrator vibrator;
 
 
     @Override
@@ -25,7 +30,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Context context = MainActivity.this;
+        sharedPrefs = context.getSharedPreferences(
+                "CurrentUser", Context.MODE_PRIVATE);
+
+        count = sharedPrefs.getInt("currCount", 0);
         displayCount = findViewById(R.id.countValue);
+        displayCount.setText(Integer.toString(count));
         lightSwitch = findViewById(R.id.lightSwitch);
         main_layout = (ConstraintLayout) findViewById(R.id.main_layout);
         incButton = findViewById(R.id.incButton);
@@ -36,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
         incButton.setBackgroundColor(Color.LTGRAY);
         decButton.setBackgroundColor(Color.LTGRAY);
         resetButton.setBackgroundColor(Color.RED);
+
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
         lightSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -50,22 +63,39 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    } // onCreate
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        SharedPreferences.Editor prefsEditor = sharedPrefs.edit();
+        prefsEditor.putInt("currCount", count);
+        prefsEditor.commit();
     }
 
     public void incrementCount(View view) {
         count++;
+        vibrator.vibrate(10);
         displayCount.setText(Integer.toString(count));
     }
 
     public void decrementCount(View view) {
         if (count > 0) {
             count--;
+
+            // creates a double vibration effect
+            // 0 means start immediately.
+            // Then vibrate for 10, off for 50, then vibrate for 10
+            long[] pattern = {0, 10, 50, 10};
+            vibrator.vibrate(pattern, -1);
         }
         displayCount.setText(Integer.toString(count));
     }
 
     public void resetCount (View view) {
         count = 0;
+        vibrator.vibrate(1000);
         displayCount.setText(Integer.toString(count));
     }
 
